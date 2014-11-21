@@ -57,12 +57,12 @@ dependencies {
     compile "org.glassfish.jersey.containers:jersey-container-servlet:${jerseyVersion}"
     compile "org.glassfish.jersey.containers.glassfish:jersey-gf-cdi:${jerseyVersion}"
 
-    compile "org.eclipse.jetty.websocket:websocket-api:${jerseyVersion}"
-    compile "org.eclipse.jetty:jetty-server:${jerseyVersion}"
-    compile "org.eclipse.jetty:jetty-servlet:${jerseyVersion}"
-    compile "org.eclipse.jetty:jetty-servlets:${jerseyVersion}"
-    compile "org.eclipse.jetty.websocket:websocket-server:${jerseyVersion}"
-    compile "org.eclipse.jetty.websocket:javax-websocket-server-impl:${jerseyVersion}"
+    compile "org.eclipse.jetty.websocket:websocket-api:${jettyVersion}"
+    compile "org.eclipse.jetty:jetty-server:${jettyVersion}"
+    compile "org.eclipse.jetty:jetty-servlet:${jettyVersion}"
+    compile "org.eclipse.jetty:jetty-servlets:${jettyVersion}"
+    compile "org.eclipse.jetty.websocket:websocket-server:${jettyVersion}"
+    compile "org.eclipse.jetty.websocket:javax-websocket-server-impl:${jettyVersion}"
     // TODO: Add dependencies here ...
     // You can read more about how to add dependency here:
     //   http://www.gradle.org/docs/current/userguide/dependency_management.html#sec:how_to_declare_your_dependencies
