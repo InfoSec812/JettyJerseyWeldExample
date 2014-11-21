@@ -1,4 +1,5 @@
 apply plugin: 'java'
+apply plugin: 'idea'
 
 sourceCompatibility = '1.8'
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
@@ -15,7 +16,9 @@ if (!hasProperty('mainClass')) {
 }
 
 project.ext.jettyVersion = '9.2.+'
-project.ext.jerseyVersion = '1.18.1'
+project.ext.jerseyVersion = '2.9'
+project.ext.deltaSpikeVersion = '1.0.2'
+project.ext.weldVersion = '1.1.9.Final'
 
 repositories {
     mavenCentral()
@@ -36,21 +39,37 @@ dependencies {
     compile 'commons-codec:commons-codec:1.9'
     compile 'javax.websocket:javax.websocket-api:1.0'
     compile 'commons-httpclient:commons-httpclient:3.1'
-
-    compile "com.sun.jersey.contribs:jersey-multipart:$jerseyVersion"
-    compile "com.sun.jersey:jersey-core:$jerseyVersion"
-    compile "com.sun.jersey:jersey-json:$jerseyVersion"
-    compile "com.sun.jersey:jersey-servlet:$jerseyVersion"
-
-    compile "org.eclipse.jetty.websocket:websocket-api:$jettyVersion"
-    compile "org.eclipse.jetty:jetty-server:$jettyVersion"
-    compile "org.eclipse.jetty:jetty-servlet:$jettyVersion"
-    compile "org.eclipse.jetty:jetty-servlets:$jettyVersion"
-    compile "org.eclipse.jetty.websocket:websocket-server:$jettyVersion"
-    compile "org.eclipse.jetty.websocket:javax-websocket-server-impl:$jettyVersion"
+    compile 'com.google.code.gson:gson:2.2.4'
     compile 'javax.xml:jaxb-api:2.1'
+    compile 'commons-daemon:commons-daemon:1.0.13'
+    compile 'com.beust:jcommander:1.30'
+
+    compile "org.apache.deltaspike.core:deltaspike-core-api:${deltaSpikeVersion}"
+    compile "org.apache.deltaspike.core:deltaspike-core-impl:${deltaSpikeVersion}"
+    compile "org.apache.deltaspike.modules:deltaspike-servlet-module-api:${deltaSpikeVersion}"
+    compile "org.apache.deltaspike.modules:deltaspike-servlet-module-impl:${deltaSpikeVersion}"
+    compile "org.apache.deltaspike.cdictrl:deltaspike-cdictrl-servlet:${deltaSpikeVersion}"
+    compile "org.apache.deltaspike.cdictrl:deltaspike-cdictrl-weld:${deltaSpikeVersion}"
+    compile "org.apache.deltaspike.cdictrl:deltaspike-cdictrl-api:${deltaSpikeVersion}"
+
+    compile "org.jboss.weld.se:weld-se:${weldVersion}"
+
+    compile "org.glassfish.jersey.containers:jersey-container-servlet:${jerseyVersion}"
+    compile "org.glassfish.jersey.containers.glassfish:jersey-gf-cdi:${jerseyVersion}"
+
+    compile "org.eclipse.jetty.websocket:websocket-api:${jerseyVersion}"
+    compile "org.eclipse.jetty:jetty-server:${jerseyVersion}"
+    compile "org.eclipse.jetty:jetty-servlet:${jerseyVersion}"
+    compile "org.eclipse.jetty:jetty-servlets:${jerseyVersion}"
+    compile "org.eclipse.jetty.websocket:websocket-server:${jerseyVersion}"
+    compile "org.eclipse.jetty.websocket:javax-websocket-server-impl:${jerseyVersion}"
     // TODO: Add dependencies here ...
     // You can read more about how to add dependency here:
     //   http://www.gradle.org/docs/current/userguide/dependency_management.html#sec:how_to_declare_your_dependencies
     testCompile group: 'junit', name: 'junit', version: '4.10'
+}
+
+task run (type: JavaExec) {
+    classpath configurations.compile
+    main 'com.zanclus.example.Main'
 }
