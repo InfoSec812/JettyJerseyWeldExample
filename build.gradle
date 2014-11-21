@@ -18,7 +18,9 @@ if (!hasProperty('mainClass')) {
 project.ext.jettyVersion = '9.2.+'
 project.ext.jerseyVersion = '2.9'
 project.ext.deltaSpikeVersion = '1.0.2'
-project.ext.weldVersion = '1.1.9.Final'
+project.ext.weldVersion = '2.2.6.Final'
+project.ext.restEasyVersion = '3.0.10.Final'
+project.ext.mainClass = 'com.zanclus.example.Main'
 
 repositories {
     mavenCentral()
@@ -44,32 +46,23 @@ dependencies {
     compile 'commons-daemon:commons-daemon:1.0.13'
     compile 'com.beust:jcommander:1.30'
 
-    compile "org.apache.deltaspike.core:deltaspike-core-api:${deltaSpikeVersion}"
-    compile "org.apache.deltaspike.core:deltaspike-core-impl:${deltaSpikeVersion}"
-    compile "org.apache.deltaspike.modules:deltaspike-servlet-module-api:${deltaSpikeVersion}"
-    compile "org.apache.deltaspike.modules:deltaspike-servlet-module-impl:${deltaSpikeVersion}"
-    compile "org.apache.deltaspike.cdictrl:deltaspike-cdictrl-servlet:${deltaSpikeVersion}"
-    compile "org.apache.deltaspike.cdictrl:deltaspike-cdictrl-weld:${deltaSpikeVersion}"
-    compile "org.apache.deltaspike.cdictrl:deltaspike-cdictrl-api:${deltaSpikeVersion}"
-
     compile "org.jboss.weld.se:weld-se:${weldVersion}"
+    compile "org.jboss.weld.servlet:weld-servlet:${weldVersion}"
 
-    compile "org.glassfish.jersey.containers:jersey-container-servlet:${jerseyVersion}"
-    compile "org.glassfish.jersey.containers.glassfish:jersey-gf-cdi:${jerseyVersion}"
+    compile "org.jboss.resteasy:resteasy-jaxrs:${restEasyVersion}"
+    compile "org.jboss.resteasy:resteasy-cdi:${restEasyVersion}"
+    compile "org.jboss.resteasy:resteasy-servlet-initializer:${restEasyVersion}"
+    compile "org.jboss.resteasy:jaxrs-api:${restEasyVersion}"
 
-    compile "org.eclipse.jetty.websocket:websocket-api:${jerseyVersion}"
-    compile "org.eclipse.jetty:jetty-server:${jerseyVersion}"
-    compile "org.eclipse.jetty:jetty-servlet:${jerseyVersion}"
-    compile "org.eclipse.jetty:jetty-servlets:${jerseyVersion}"
-    compile "org.eclipse.jetty.websocket:websocket-server:${jerseyVersion}"
-    compile "org.eclipse.jetty.websocket:javax-websocket-server-impl:${jerseyVersion}"
+    compile "org.eclipse.jetty.websocket:websocket-api:${jettyVersion}"
+    compile "org.eclipse.jetty:jetty-server:${jettyVersion}"
+    compile "org.eclipse.jetty:jetty-servlet:${jettyVersion}"
+    compile "org.eclipse.jetty:jetty-jsp:${jettyVersion}"
+    compile "org.eclipse.jetty:jetty-servlets:${jettyVersion}"
+    compile "org.eclipse.jetty.websocket:websocket-server:${jettyVersion}"
+    compile "org.eclipse.jetty.websocket:javax-websocket-server-impl:${jettyVersion}"
     // TODO: Add dependencies here ...
     // You can read more about how to add dependency here:
     //   http://www.gradle.org/docs/current/userguide/dependency_management.html#sec:how_to_declare_your_dependencies
     testCompile group: 'junit', name: 'junit', version: '4.10'
-}
-
-task run (type: JavaExec) {
-    classpath configurations.compile
-    main 'com.zanclus.example.Main'
 }

@@ -11,14 +11,14 @@ import java.util.GregorianCalendar;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.Produces;
-import org.apache.deltaspike.core.api.common.DeltaSpike;
+import javax.inject.Named;
 import org.eclipse.jetty.server.Server;
 
 /**
  * Dependency Injection Application Module
  * @author <a href="mailto: deven.phillips@gmail.com">Deven Phillips</a>
  */
-@ApplicationScoped @DeltaSpike
+@ApplicationScoped
 public class Application {
 
     private Configuration config;
@@ -34,7 +34,7 @@ public class Application {
     }
 
 
-    @Produces @DeltaSpike
+    @Produces @Named(value = "serverTime")
     public Calendar getGalendar() {
         return new GregorianCalendar();
     }
