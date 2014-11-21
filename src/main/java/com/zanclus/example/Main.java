@@ -1,8 +1,9 @@
 package com.zanclus.example;
 
 import com.beust.jcommander.JCommander;
+import com.sun.jersey.api.core.PackagesResourceConfig;
+import com.sun.jersey.spi.container.servlet.ServletContainer;
 import com.zanclus.example.entities.Configuration;
-import com.zanclus.example.ioc.CdiBinder;
 import java.lang.annotation.Annotation;
 import java.net.InetSocketAddress;
 import javax.enterprise.inject.spi.BeanManager;
@@ -14,8 +15,6 @@ import org.apache.deltaspike.cdise.servlet.CdiServletRequestListener;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import org.glassfish.jersey.server.ResourceConfig;
-import org.glassfish.jersey.servlet.ServletContainer;
 
 @Slf4j
 public class Main {
@@ -47,10 +46,8 @@ public class Main {
         Server server = new Server(new InetSocketAddress(config.listen(), config.port()));
         ServletContextHandler handler = new ServletContextHandler(null, "/");
         handler.addEventListener(new CdiServletRequestListener());
-        ResourceConfig jerseyRes = new ResourceConfig();
-        jerseyRes.packages("com.zanclus.example.api");
-        jerseyRes.register(CdiBinder.class);
-        ServletHolder jersey = new ServletHolder(new ServletContainer(jerseyRes));
+        ServletContainer jerseyContainer = new ServletContainer(new PackagesResourceConfig("com.zanclus.example.api"));
+        ServletHolder jersey = new ServletHolder(jerseyContainer);
         handler.addServlet(jersey, "/*");
         server.setHandler(handler);
         

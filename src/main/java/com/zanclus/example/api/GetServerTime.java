@@ -28,13 +28,17 @@ public class GetServerTime {
     @Path("/time")
     @Produces(value = {"application/json"})
     public String getServerTime() {
-        ServerTime time = new ServerTime()
-                                .day(serverTime.get(Calendar.DAY_OF_MONTH))
-                                .month(serverTime.get(Calendar.MONTH))
-                                .year(serverTime.get(Calendar.YEAR))
-                                .hours(serverTime.get(Calendar.HOUR))
-                                .minutes(serverTime.get(Calendar.MINUTE))
-                                .seconds(serverTime.get(Calendar.SECOND));
-        return time.toString();
+        if (serverTime==null) {
+            throw new NullPointerException("serverTime not injected.");
+        } else {
+            ServerTime time = new ServerTime()
+                                    .day(serverTime.get(Calendar.DAY_OF_MONTH))
+                                    .month(serverTime.get(Calendar.MONTH))
+                                    .year(serverTime.get(Calendar.YEAR))
+                                    .hours(serverTime.get(Calendar.HOUR))
+                                    .minutes(serverTime.get(Calendar.MINUTE))
+                                    .seconds(serverTime.get(Calendar.SECOND));
+            return time.toString();
+        }
     }
 }

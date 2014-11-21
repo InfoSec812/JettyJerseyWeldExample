@@ -5,9 +5,12 @@
  */
 package com.zanclus.example.ioc;
 
+import com.google.common.collect.ImmutableSet;
+import com.zanclus.example.api.GetServerTime;
 import com.zanclus.example.entities.Configuration;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Set;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.Produces;
@@ -19,7 +22,7 @@ import org.eclipse.jetty.server.Server;
  * @author <a href="mailto: deven.phillips@gmail.com">Deven Phillips</a>
  */
 @ApplicationScoped @DeltaSpike
-public class Application {
+public class JerseyApplication {
 
     private Configuration config;
 
@@ -32,7 +35,6 @@ public class Application {
     public void observe(@Observes Server server) {
         this.server = server;
     }
-
 
     @Produces @DeltaSpike
     public Calendar getGalendar() {
